@@ -1,8 +1,9 @@
-class PlayerJS {
+class PlayerJS extends Eventable {
   cfg = {};
   timer = null;
 
   constructor(config) {
+    super();
     this.cfg = config;
     this.initialize();
   }
@@ -14,6 +15,13 @@ class PlayerJS {
     setInterval(this.updateAll.bind(this), 1);
   }
 
+  open(file) {
+    if (!file)
+      return;
+
+    this.cfg.video.src = URL.createObjectURL(file);
+  }
+
   pause() {
     this.cfg.video.pause();
   }
@@ -22,12 +30,20 @@ class PlayerJS {
     this.cfg.video.play();
   }
 
-  seekLeft() {
-    this.cfg.video.currentTime -= 0.1;
+  seekLeft(amount) {
+    this.cfg.video.currentTime -= amount;
   }
 
-  seekRight() {
-    this.cfg.video.currentTime += 0.1;
+  seekRight(amount) {
+    this.cfg.video.currentTime += amount;
+  }
+
+  setCurrentTime(timestamp) {
+    this.cfg.video.currentTime = Utils.convertStringTimestampToSeconds(timestamp);
+  }
+
+  getCurrentTime() {
+    return Utils.convertSecondsToStringTimestamp(this.cfg.video.currentTime);
   }
 
   togglePlay() {
@@ -72,7 +88,9 @@ class PlayerJS {
 
   updateAll() {
     try {
-      this.cfg.timestamp.value = this.formatTimestamp(this.cfg.video.currentTime);
+      let timestamp = Utils.convertSecondsToStringTimestamp(this.cfg.video.currentTime);
+      this.cfg.timestamp.value = timestamp;
+      this.fireEvent('timestamp.update', timestamp);
     } catch (e) {
       console.warn(e);
     }

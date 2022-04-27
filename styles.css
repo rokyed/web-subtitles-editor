@@ -18,6 +18,7 @@ body {
 * {
   font-family: monospace;
   font-size: 20px;
+  box-sizing: border-box;
 }
 
 html {
@@ -30,6 +31,15 @@ html {
   overflow: hidden;
 }
 
+.titlebar {
+  min-height: 130px;
+  border-bottom: 1px solid #111;
+  font-size: 30px;
+  line-height:  30px;
+  vertical-align: center;
+  text-align: center;
+  padding: 5px;
+}
 
 
 .header {
@@ -39,4 +49,47 @@ html {
 #player {
   max-height: 400px;
   background: #222;
+}
+.hscroll {
+  overflow-y: auto;
+}
+.hscroll * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hscroll input {
+  apparence: none;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: center;
+}
+
+.hscroll table {
+  width: 100%;
+}
+.hscroll #tableHeader {
+  position: fixed;
+}
+.scrollabletable {
+  margin-top: 50px;
+  height: auto;
+  overflow-y: scroll;
+}
+
+.hscroll th, .hscroll td {
+  height: 50px;
+  border: 1px solid #111;
+}
+.hscroll td:nth-child(1),.hscroll th:nth-child(1) {
+  width: 70px;
+}
+.hscroll td:nth-child(2),.hscroll th:nth-child(2) {
+  width: 150px;
+}
+.hscroll td:nth-child(3),.hscroll th:nth-child(3) {
+  width: 150px;
 }
