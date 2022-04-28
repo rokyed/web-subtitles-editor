@@ -2,6 +2,7 @@ class SubtitleManager {
   cfg = {};
   data = {list:[]};
   snaps = [];
+
   constructor(config) {
     this.cfg = config;
   }
@@ -77,6 +78,10 @@ class SubtitleManager {
 
   removeSubtitle(subtitle) {
 
+  }
+
+  getData() {
+    return this.data
   }
 
 }

@@ -9,7 +9,7 @@ class Converter {
   }
 
   getMimeType() {
-    return 'text/plain';
+    return 'text/plain;charset=utf-8';
   }
 
   convertObjectToFileContent(obj) {
@@ -29,7 +29,9 @@ class Converter {
     return this.convertFileContentToObject(fileContent)
   }
 
-  async writeData(file) {
-
+  async writeData(data) {
+    let blob = new Blob([this.convertObjectToFileContent(data)], {type: this.getMimeType()})
+    let url = URL.createObjectURL(blob);
+    window.open(url,'_blank');
   }
 }

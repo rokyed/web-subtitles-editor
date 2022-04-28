@@ -12,7 +12,16 @@ class Snap {
   render() {
     this.el = document.createElement('tr');
     this.el.innerHTML= `
-      <td><input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)}" type="text"></td>
+      <td>
+        <div class="snap-control-container">
+          <div class="snap-control-buttons">
+            <button>+</button>
+            <button>-</button>
+            <button>+</button>
+          </div>
+          <input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)}" type="text">
+        </div>
+      </td>
       <td><input class="snap-start-ts" value="${this.ref.start}" type="text"></td>
       <td><input class="snap-end-ts" value="${this.ref.end}" type="text"></td>
       <td><textarea class="snap-content">${this.ref.content.join('\n')}</textarea></td>

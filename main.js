@@ -11,11 +11,23 @@ window.subtitleManager = new SubtitleManager({
 
 window.converters = {
   json: new JSONConverter(),
-  subrip: new SubRipConverter()
+  subrip: new SubRipConverter(),
+  localStorage: new LocalStorageConverter()
 };
-
 window.videoPlayer.addListener('timestamp.update', window.subtitleManager.updateUI, window.subtitleManager);
 
+async function initializeSubtitleManagerAutosave() {
+  // loading autosaves
+  let restoredSubtitles = await window.converters.localStorage.getData();
+
+  if (restoredSubtitles && restoredSubtitles.list && restoredSubtitles.list.length > 0)
+    window.subtitleManager.load(restoredSubtitles);
+
+  //writing autosaves
+  setInterval(function () {
+    window.converters.localStorage.writeData(window.subtitleManager.getData());
+  }, 15000);
+}
 
 function setVideo(e) {
   var file = e.target.files[0];
@@ -45,6 +57,7 @@ async function setSubtitles(e) {
 
 
   window.subtitleManager.load(converted);
+  window.converters.localStorage.writeData(converted);
 }
 
 
@@ -54,6 +67,14 @@ document.getElementById('videoinput')
 document.getElementById('subtitlefileinput')
   .addEventListener('change', setSubtitles, false);
 
+document.getElementById('savesubrip')
+  .addEventListener('click', (e) => {
+    window.converters.subrip.writeData(window.subtitleManager.getData());
+  });
+document.getElementById('savejson')
+  .addEventListener('click', (e) => {
+    window.converters.json.writeData(window.subtitleManager.getData());
+  });
 
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey) {
@@ -81,6 +102,11 @@ window.addEventListener('keydown', (e) => {
           document.activeElement.value = window.videoPlayer.getCurrentTime();
           document.activeElement.dispatchEvent(new Event('change'));
           break;
+        case 'KeyC':
+          window.subtitleManager.addSubtitle(window.videoPlayer.getCurrentTime());
+          break;
     }
   }
 });
+
+initializeSubtitleManagerAutosave();

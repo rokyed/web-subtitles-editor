@@ -10,6 +10,7 @@
     <script src="core/player.js"></script>
     <script src="core/subtitleManager.js"></script>
     <script src="core/converter.js"></script>
+    <script src="converters/localStorageConverter.js"></script>
     <script src="converters/subRipConverter.js"></script>
     <script src="converters/jsonConverter.js"></script>
   </head>
@@ -34,8 +35,10 @@
     </div>
     <div class="header">
       <label>
-        Load Subtitles:
+        Load Subtitles (JSON, SubRip):
         <input type="file" id="subtitlefileinput" name="video">
+        <button id="savesubrip">Save SubRip</button>
+        <button id="savejson">Save JSON</button>
       </label>
     </div>
     <div class="hscroll">
