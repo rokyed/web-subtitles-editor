@@ -19,7 +19,7 @@ class Snap {
             <button>-</button>
             <button>+</button>
           </div>
-          <input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)}" type="text">
+          <input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)+1}" type="text">
         </div>
       </td>
       <td><input class="snap-start-ts" value="${this.ref.start}" type="text"></td>
