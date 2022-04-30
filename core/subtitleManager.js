@@ -3,12 +3,15 @@ class SubtitleManager {
   data = {list:[]};
   snaps = [];
 
+  dataSnapshots= [];
+
   constructor(config) {
     this.cfg = config;
   }
 
   load(data) {
     this.data = data;
+    this.pushCurrentStateToSnapshots();
     this.renderList();
   }
 
@@ -54,7 +57,8 @@ class SubtitleManager {
     }
   }
 
-  addSubtitle(startTime) {
+  addSubtitle(startTime, referencePoint, isAfter) {
+      this.pushCurrentStateToSnapshots();
       let ts = '';
 
       if (isNaN(startTime)) {
@@ -66,22 +70,59 @@ class SubtitleManager {
       let secs = Utils.convertStringTimestampToSeconds(ts);
       secs += 0.1;
       let end = Utils.convertSecondsToStringTimestamp(secs);
-
-      this.data.list.push({
+      let subtitleObj = {
         start: ts,
         end: end,
         content: []
-      });
+      };
+
+      if (referencePoint) {
+        let position = this.getIndexOfSubtitle(referencePoint);
+        if (isAfter) {
+          position ++;
+        }
+
+        this.data.list.splice(position, 0, subtitleObj);
+
+      } else {
+        this.data.list.push(subtitleObj);
+      }
 
       this.renderList()
   }
 
   removeSubtitle(subtitle) {
+    this.pushCurrentStateToSnapshots();
 
+    let position = this.getIndexOfSubtitle(subtitle);
+    this.data.list.splice(position, 1);
+    this.renderList()
   }
 
   getData() {
     return this.data
+  }
+
+  pushCurrentStateToSnapshots() {
+    this.dataSnapshots.unshift(JSON.stringify(this.data));
+
+    if (this.dataSnapshots.length > 10) {
+      this.dataSnapshots.splice(10, this.dataSnapshots.length - 10);
+    }
+  }
+
+  restoreSnapshot() {
+    if (this.dataSnapshots.length > 0) {
+      this.data = JSON.parse(this.dataSnapshots[0]);
+      this.dataSnapshots.splice(0,1);
+      this.renderList();
+    }
+  }
+
+  onScroll() {
+    for (let i = 0; i < this.snaps.length; i++) {
+      this.snaps[i].onScroll();
+    }
   }
 
 }

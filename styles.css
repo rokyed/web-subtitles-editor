@@ -93,9 +93,8 @@ input[type="file"] {
   height: 50px;
   border: 1px solid #111;
 }
-.hscroll .scrollabletable td {
+.hscroll .scrollabletable tr {
   height: 100px;
-
 }
 .hscroll .scrollabletable td textarea {
   height: 100%;
@@ -123,4 +122,8 @@ input[type="file"] {
 .snap-control-buttons {
   display: flex;
   flex-direction: column;
+}
+
+.occludable.hidden {
+  display: none;
 }

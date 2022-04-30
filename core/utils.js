@@ -1,4 +1,6 @@
 class Utils {
+  static DIFF_SECONDS_STEP = 0.1;
+  
   static convertStringTimestampToSeconds(str) {
     let secs = 0;
 

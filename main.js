@@ -29,6 +29,10 @@ async function initializeSubtitleManagerAutosave() {
   }, 15000);
 }
 
+setInterval(function () {
+  // window.subtitleManager.onScroll();
+}, 16);
+
 function setVideo(e) {
   var file = e.target.files[0];
   if (!file) {
@@ -75,6 +79,10 @@ document.getElementById('savejson')
   .addEventListener('click', (e) => {
     window.converters.json.writeData(window.subtitleManager.getData());
   });
+// 
+// window.addEventListener('scroll', (e) => {
+//   window.subtitleManager.onScroll();
+// })
 
 window.addEventListener('keydown', (e) => {
   if (e.ctrlKey) {
@@ -85,6 +93,9 @@ window.addEventListener('keydown', (e) => {
     }
 
     switch (e.code) {
+      case 'KeyZ':
+        window.subtitleManager.restoreSnapshot();
+        break;
       case 'ArrowLeft':
         window.videoPlayer.seekLeft(seekAmount);
         break;
