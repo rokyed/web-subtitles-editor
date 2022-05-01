@@ -48,13 +48,16 @@ class SubtitleManager {
 
   updateUI(timestamp) {
     let currentSubtitle = this.getCurrentSubtitle(timestamp);
+    let subtitleIHTML = this.cfg.subtitleElement.innerHTML;
+    let toSet = '';
 
-    if (!currentSubtitle) {
-      this.cfg.subtitleElement.innerHTML = '';
-    } else {
-      this.cfg.subtitleElement.innerHTML = currentSubtitle.content && currentSubtitle.content.join('<br>');
 
+    if (currentSubtitle) {
+      toSet = currentSubtitle.content && currentSubtitle.content.join('<br>');
     }
+
+    if (toSet != subtitleIHTML)
+      this.cfg.subtitleElement.innerHTML = toSet;
   }
 
   addSubtitle(startTime, referencePoint, isAfter) {
