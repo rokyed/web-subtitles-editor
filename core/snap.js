@@ -30,9 +30,9 @@ class Snap extends Eventable {
       <td class="occludable">
         <div class="snap-control-container">
           <div class="snap-control-buttons">
-            <button class="snap-add-before">+</button>
-            <button class="snap-remove">-</button>
             <button class="snap-add-after">+</button>
+            <button class="snap-remove">-</button>
+            <button class="snap-add-before">+</button>
           </div>
           <input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)+1}" type="text">
         </div>

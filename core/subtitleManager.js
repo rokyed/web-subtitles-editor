@@ -41,7 +41,7 @@ class SubtitleManager {
 
     this.snaps = [];
 
-    for (let i = 0; i < this.data.list.length; i++) {
+    for (let i = this.data.list.length - 1; i >= 0; i--) {
       this.snaps.push(new Snap(this.cfg.listElement, this.data.list[i], this));
     }
   }
