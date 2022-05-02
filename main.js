@@ -51,7 +51,12 @@ async function setSubtitles(e) {
   let converter = null;
 
   for (let k in window.converters) {
-    if (window.converters[k].getMimeType() == file.type) {
+    let mime = window.converters[k].getMimeType();
+    let suffix = window.converters[k].getFileType();
+
+    if (mime == file.type) {
+      converter = window.converters[k];
+    } else if (suffix.length > 0 && file.name.indexOf(suffix) == file.name.length - suffix.length) {
       converter = window.converters[k];
     }
   }
