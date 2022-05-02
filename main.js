@@ -129,7 +129,8 @@ Ctrl+Left Arrow: seeking left
 Ctrl+Right Arrow: seeking right
 Ctrl+Shift+Left Arrow: seeking left fast
 Ctrl+Shift+Right Arrow: seeking right fast
-Alt+S: Set video time to current subtitle select
+Alt+D: Set video time to selected subtitle start
+Alt+F: Set video time to selected subtitle end
 Alt+Z: Set start of subtitle to current video time
 Alt+X: Set end of subtitle to current video time
 Alt+C: Create new subtitle
@@ -138,10 +139,17 @@ Alt+M: Create new subtitle with start time from Alt+N and current time.
 Alt+W: Set current time as text.
           `)
           break;
-        case 'KeyS':
+        case 'KeyD':
           snaps.map((s) => {
             if (s.contains(actel)) {
               window.videoPlayer.setCurrentTime(s.ref.start);
+            }
+          })
+          break;
+        case 'KeyF':
+          snaps.map((s) => {
+            if (s.contains(actel)) {
+              window.videoPlayer.setCurrentTime(s.ref.end);
             }
           })
           break;
