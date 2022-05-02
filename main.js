@@ -1,3 +1,8 @@
+window.snapInsert = {
+  start: null,
+  ready: false
+};
+
 window.videoPlayer = new PlayerJS({
   video: document.querySelector('video'),
   timestamp: document.querySelector('#timestamp')
@@ -79,13 +84,18 @@ document.getElementById('savejson')
   .addEventListener('click', (e) => {
     window.converters.json.writeData(window.subtitleManager.getData());
   });
-// 
+//
 // window.addEventListener('scroll', (e) => {
 //   window.subtitleManager.onScroll();
 // })
 
 window.addEventListener('keydown', (e) => {
+  // e.stopPropagation();
+  let actel = document.activeElement;
+
   if (e.ctrlKey) {
+    e.preventDefault();
+
     let seekAmount = 0.05;
 
     if (e.shiftKey) {
@@ -107,14 +117,74 @@ window.addEventListener('keydown', (e) => {
         break;
     }
   } else if (e.altKey) {
+    e.preventDefault();
+
+    let snaps = window.subtitleManager.getSnaps();
 
     switch (e.code) {
+        case 'KeyH':
+          alert(`
+Ctrl+Z: Undo
+Ctrl+Left Arrow: seeking left
+Ctrl+Right Arrow: seeking right
+Ctrl+Shift+Left Arrow: seeking left fast
+Ctrl+Shift+Right Arrow: seeking right fast
+Alt+S: Set video time to current subtitle select
+Alt+Z: Set start of subtitle to current video time
+Alt+X: Set end of subtitle to current video time
+Alt+C: Create new subtitle
+Alt+N: Set start time of future subtitle
+Alt+M: Create new subtitle with start time from Alt+N and current time.
+Alt+W: Set current time as text.
+          `)
+          break;
+        case 'KeyS':
+          snaps.map((s) => {
+            if (s.contains(actel)) {
+              window.videoPlayer.setCurrentTime(s.ref.start);
+            }
+          })
+          break;
+        case 'KeyZ':
+          snaps.map((s) => {
+            if (s.contains(actel)) {
+              s.ref.start = window.videoPlayer.getCurrentTime();
+              s.refresh();
+              console.log(s);
+            }
+          })
+          break;
         case 'KeyX':
+          snaps.map((s) => {
+            if (s.contains(actel)) {
+              s.ref.end = window.videoPlayer.getCurrentTime();
+              s.refresh();
+              console.log(s);
+            }
+          })
+          break;
+        case 'KeyN':
+          window.snapInsert.start = window.videoPlayer.getCurrentTime();
+          window.snapInsert.ready = true;
+          break;
+        case 'KeyM':
+          if (window.snapInsert.ready === true) {
+            window.subtitleManager.addSubtitle({
+              startTime: window.snapInsert.start,
+              endTime: window.videoPlayer.getCurrentTime()
+            });
+            window.snapInsert.start = null;
+            window.snapInsert.ready = false;
+          }
+          break;
+        case 'KeyW':
           document.activeElement.value = window.videoPlayer.getCurrentTime();
           document.activeElement.dispatchEvent(new Event('change'));
           break;
         case 'KeyC':
-          window.subtitleManager.addSubtitle(window.videoPlayer.getCurrentTime());
+          window.subtitleManager.addSubtitle({
+            startTime: window.videoPlayer.getCurrentTime()
+          });
           break;
     }
   }

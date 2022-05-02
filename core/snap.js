@@ -34,14 +34,14 @@ class Snap extends Eventable {
             <button class="snap-remove">-</button>
             <button class="snap-add-before">+</button>
           </div>
-          <input class="snap-order" value="${subtitleManager.getIndexOfSubtitle(this.ref)+1}" type="text">
+          <input class="snap-order" value="${this.subtitleManager.getIndexOfSubtitle(this.ref)+1}" type="text">
         </div>
       </td>
       <td class="occludable"><input class="snap-start-ts" value="${this.ref.start}" type="text"></td>
       <td class="occludable"><input class="snap-end-ts" value="${this.ref.end}" type="text"></td>
       <td class="occludable"><textarea class="snap-content">${this.ref.content.join('\n')}</textarea></td>
     `;
-    this.els.content = this.el.querySelector('.snap-order');
+    this.els.order = this.el.querySelector('.snap-order');
     this.els.start = this.el.querySelector('.snap-start-ts');
     this.els.end = this.el.querySelector('.snap-end-ts');
     this.els.content = this.el.querySelector('.snap-content');
@@ -50,6 +50,9 @@ class Snap extends Eventable {
     this.els.remove = this.el.querySelector('.snap-remove');
 
 
+    this.els.start.addEventListener('input', this.onStartChange.bind(this));
+    this.els.end.addEventListener('input', this.onEndChange.bind(this));
+    this.els.content.addEventListener('input', this.onContentChange.bind(this));
     this.els.start.addEventListener('change', this.onStartChange.bind(this));
     this.els.end.addEventListener('change', this.onEndChange.bind(this));
     this.els.content.addEventListener('change', this.onContentChange.bind(this));
@@ -61,15 +64,29 @@ class Snap extends Eventable {
     // this.onScroll();
   }
 
+  refresh() {
+    this.els.start.value = this.ref.start;
+    this.els.end.value = this.ref.end;
+    this.els.content.value = this.ref.content.join('\n');
+    this.els.order.value = this.subtitleManager.getIndexOfSubtitle(this.ref)+1;
+  }
+
   onAddAfter() {
     let secs = Utils.convertStringTimestampToSeconds(this.ref.end);
     secs += Utils.DIFF_SECONDS_STEP;
-    this.subtitleManager.addSubtitle(Utils.convertSecondsToStringTimestamp(secs), this.ref, true);
+    this.subtitleManager.addSubtitle({
+      startTime: Utils.convertSecondsToStringTimestamp(secs),
+      ref: this.ref,
+      isAfter: true
+    });
   }
   onAddBefore() {
     let secs = Utils.convertStringTimestampToSeconds(this.ref.start);
     secs -= Utils.DIFF_SECONDS_STEP;
-    this.subtitleManager.addSubtitle(Utils.convertSecondsToStringTimestamp(secs), this.ref);
+    this.subtitleManager.addSubtitle({
+      startTime: Utils.convertSecondsToStringTimestamp(secs),
+      ref: this.ref
+    });
   }
   onRemove() {
     this.subtitleManager.removeSubtitle(this.ref);
@@ -96,7 +113,11 @@ class Snap extends Eventable {
     this.el = null;
   }
 
+  focusText() {
+      this.els.content.focus();
+  }
 
-
-
+  contains(el) {
+    return this.el.contains(el);
+  }
 }

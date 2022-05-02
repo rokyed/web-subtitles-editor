@@ -60,7 +60,9 @@ class SubtitleManager {
       this.cfg.subtitleElement.innerHTML = toSet;
   }
 
-  addSubtitle(startTime, referencePoint, isAfter) {
+  addSubtitle(conf = {}) {
+      let {startTime, endTime, referencePoint, isAfter} = conf;
+      let focusRefSnap = -1;
       this.pushCurrentStateToSnapshots();
       let ts = '';
 
@@ -70,9 +72,16 @@ class SubtitleManager {
         ts = Utils.convertSecondsToStringTimestamp(ts);
       }
 
-      let secs = Utils.convertStringTimestampToSeconds(ts);
-      secs += 0.1;
-      let end = Utils.convertSecondsToStringTimestamp(secs);
+      let end = Utils.convertSecondsToStringTimestamp(Utils.convertStringTimestampToSeconds(ts) + 0.3);
+
+      if (endTime !== null && endTime !== undefined) {
+        if (isNaN(endTime)) {
+          end = endTime;
+        } else {
+          end = utils.convertSecondsToStringTimestamp(endTime);
+        }
+      }
+
       let subtitleObj = {
         start: ts,
         end: end,
@@ -86,12 +95,29 @@ class SubtitleManager {
         }
 
         this.data.list.splice(position, 0, subtitleObj);
-
+        focusRefSnap = position + 1;
       } else {
         this.data.list.push(subtitleObj);
+        focusRefSnap = this.data.list.length - 1;
       }
 
       this.renderList()
+
+      if (focusRefSnap > -1) {
+        let ref = this.data.list[focusRefSnap];
+        this.focusSnap(ref);
+      }
+  }
+
+  focusSnap(ref) {
+    this.snaps.map((k) => {
+      if (k.ref === ref)
+        k.focusText();
+    });
+  }
+
+  getSnaps() {
+    return this.snaps;
   }
 
   removeSubtitle(subtitle) {
@@ -99,11 +125,11 @@ class SubtitleManager {
 
     let position = this.getIndexOfSubtitle(subtitle);
     this.data.list.splice(position, 1);
-    this.renderList()
+    this.renderList();
   }
 
   getData() {
-    return this.data
+    return this.data;
   }
 
   pushCurrentStateToSnapshots() {
