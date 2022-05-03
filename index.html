@@ -39,14 +39,14 @@
     <div class="header">
       <label>
         Video:
-        <input type="file" id="videoinput" name="video">
+        <input type="file" id="videoinput" name="video" title="Video file">
       </label>
       <label>
         Timestamp:
         <input type="text" id="timestamp" alt="yup">
       </label>
-      <span>
-        Press Alt+H for help.
+      <span class="hint">
+        Press <b>Alt+H</b> for help.
       </span>
     </div>
     <video id="player" controls="true">
@@ -59,8 +59,8 @@
     </div>
     <div class="header">
       <label>
-        Load Subtitles (JSON, SubRip):
-        <input type="file" id="subtitlefileinput" name="video">
+        Load Subtitles:
+        <input type="file" id="subtitlefileinput" name="video" title="Subtitle file: .srt or .json" accept=".srt, .json">
         <button id="savesubrip">Save SubRip</button>
         <button id="savejson">Save JSON</button>
       </label>

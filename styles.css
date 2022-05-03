@@ -47,6 +47,21 @@ html {
   background-color: #121212;
 }
 
+.titlebar * {
+  font-size: 30px;
+  line-height: 30px;
+}
+
+#timestamp {
+  display: inline-block;
+  apparence: none;
+  width: 160px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: center;
+}
+
 input[type="file"] {
   apparence: none;
   background: #666;
@@ -87,6 +102,7 @@ input[type="file"] {
 }
 .hscroll #tableHeader {
   position: fixed;
+  background-color: #121212;
 }
 .scrollabletable {
   margin-top: 50px;
@@ -131,4 +147,8 @@ input[type="file"] {
 
 .occludable.hidden {
   display: none;
+}
+
+.hint {
+  color: #ff9;
 }
