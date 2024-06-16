@@ -1,6 +1,8 @@
 # Web Subtitles Editor
 
-This is a tool to create and modify subtitles for videos/movies. The tool requires you to have the video/movie downloaded. There's no server for this tool. The work can be saved locally in json format or exported in subtitle format.
+This is a tool to create and modify subtitles for videos/movies. The tool requires you to have the video/movie downloaded. There's no server for this tool. The work can be saved locally in json format or exported in subtitle format. In case of something where you close the tab, the work should technically be autosaved in local storage of the browser.
+
+You do need to load the video every time you come to the app.
 
 
 #### Why vanila javascript
