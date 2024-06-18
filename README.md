@@ -17,4 +17,4 @@ The project is small enough and the scope is conscise enough that there's no nee
 
 Just make changes and open PRs, I'm open to ideas.
 
-![in editor screenshot](https://rokyed.github.io/web-subtitles-editor/editor.png)
+![in editor screenshot](https://github.com/rokyed/web-subtitles-editor/blob/master/editor.png)
