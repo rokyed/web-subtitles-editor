@@ -6,6 +6,25 @@ This is a tool to create and modify subtitles for videos/movies. The tool requir
 
 You do need to load the video every time you come to the app.
 
+#### User manual:
+
+```
+Alt+Shift+H: Opens the help prompt, containing this info.
+Ctrl+Z: Undo
+Ctrl+Left Arrow: seeking left
+Ctrl+Right Arrow: seeking right
+Ctrl+Shift+Left Arrow: seeking left fast
+Ctrl+Shift+Right Arrow: seeking right fast
+Alt+D: Set video time to selected subtitle start
+Alt+F: Set video time to selected subtitle end
+Alt+Z: Set start of subtitle to current video time
+Alt+X: Set end of subtitle to current video time
+Alt+C: Create new subtitle
+Alt+N: Set start time of future subtitle
+Alt+M: Create new subtitle with start time from Alt+N and current time.
+Alt+W: Set current time as text.
+```
+
 
 #### Why vanila javascript
 
