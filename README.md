@@ -23,6 +23,7 @@ Alt+C: Create new subtitle
 Alt+N: Set start time of future subtitle
 Alt+M: Create new subtitle with start time from Alt+N and current time.
 Alt+W: Set current time as text.
+You can also add a new subtitle by clicking the **Add Subtitle** button.
 ```
 
 

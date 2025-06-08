@@ -104,6 +104,12 @@ document.getElementById('savejson')
   .addEventListener('click', (e) => {
     window.converters.json.writeData(window.subtitleManager.getData());
   });
+document.getElementById('addsubtitle')
+  .addEventListener('click', (e) => {
+    window.subtitleManager.addSubtitle({
+      startTime: window.videoPlayer.getCurrentTime()
+    });
+  });
 document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {
   document.getElementById('helpDrawer').classList.add('open');
