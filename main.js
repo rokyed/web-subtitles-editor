@@ -57,6 +57,17 @@ setInterval(function () {
   // window.subtitleManager.onScroll();
 }, 16);
 
+function showFeedback(message, success = true) {
+  const el = document.getElementById('feedback');
+  if (!el) return;
+  el.textContent = message;
+  el.classList.remove('success', 'error', 'show');
+  el.classList.add(success ? 'success' : 'error', 'show');
+  setTimeout(() => {
+    el.classList.remove('show');
+  }, 3000);
+}
+
 function setVideo(e) {
   var file = e.target.files[0];
   if (!file) {
@@ -96,8 +107,9 @@ async function transcribeCurrentSegment(adapterName = 'openai') {
       endTime: Utils.convertSecondsToStringTimestamp(startSec + duration),
       content: [text]
     });
+    showFeedback('Transcription added', true);
   } catch (e) {
-    alert(e.message);
+    showFeedback(e.message, false);
   }
 }
 
