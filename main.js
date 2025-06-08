@@ -19,19 +19,21 @@ window.converters = {
   subrip: new SubRipConverter(),
   localStorage: new LocalStorageConverter()
 };
-const HELP_TEXT = `Ctrl+Z: Undo
-Ctrl+Left Arrow: seeking left
-Ctrl+Right Arrow: seeking right
-Ctrl+Shift+Left Arrow: seeking left fast
-Ctrl+Shift+Right Arrow: seeking right fast
-Alt+D: Set video time to selected subtitle start
-Alt+F: Set video time to selected subtitle end
-Alt+Z: Set start of subtitle to current video time
-Alt+X: Set end of subtitle to current video time
-Alt+C: Create new subtitle
-Alt+N: Set start time of future subtitle
-Alt+M: Create new subtitle with start time from Alt+N and current time.
-Alt+W: Set current time as text.`;
+const HELP_TEXT = `
+  <li><span class="command">Ctrl+Z</span>: Undo</li>
+  <li><span class="command">Ctrl+Left Arrow</span>: seeking left</li>
+  <li><span class="command">Ctrl+Right Arrow</span>: seeking right</li>
+  <li><span class="command">Ctrl+Shift+Left Arrow</span>: seeking left fast</li>
+  <li><span class="command">Ctrl+Shift+Right Arrow</span>: seeking right fast</li>
+  <li><span class="command">Alt+D</span>: Set video time to selected subtitle start</li>
+  <li><span class="command">Alt+F</span>: Set video time to selected subtitle end</li>
+  <li><span class="command">Alt+Z</span>: Set start of subtitle to current video time</li>
+  <li><span class="command">Alt+X</span>: Set end of subtitle to current video time</li>
+  <li><span class="command">Alt+C</span>: Create new subtitle</li>
+  <li><span class="command">Alt+N</span>: Set start time of future subtitle</li>
+  <li><span class="command">Alt+M</span>: Create new subtitle with start time from Alt+N and current time.</li>
+  <li><span class="command">Alt+W</span>: Set current time as text.</li>
+`;
 window.videoPlayer.addListener('timestamp.update', window.subtitleManager.updateUI, window.subtitleManager);
 
 async function initializeSubtitleManagerAutosave() {
@@ -102,7 +104,7 @@ document.getElementById('savejson')
   .addEventListener('click', (e) => {
     window.converters.json.writeData(window.subtitleManager.getData());
   });
-document.getElementById('helpDrawer').querySelector('pre').textContent = HELP_TEXT;
+document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {
   document.getElementById('helpDrawer').classList.add('open');
 });

@@ -168,13 +168,13 @@ input[type="file"] {
 .help-drawer {
   position: fixed;
   top: 0;
-  right: -300px;
-  width: 300px;
+  right: -320px;
+  width: 320px;
   height: 100%;
-  background: #222;
+  background: linear-gradient(#222, #333);
   color: #fff;
-  padding: 10px;
-  box-shadow: 0 0 10px #000;
+  padding: 10px 20px;
+  box-shadow: 0 0 15px #000;
   transition: right 0.3s ease;
   overflow-y: auto;
   z-index: 999;
@@ -194,7 +194,19 @@ input[type="file"] {
   cursor: pointer;
 }
 
-.help-drawer pre {
-  white-space: pre-wrap;
+.help-drawer ul {
   margin-top: 40px;
+  list-style: none;
+  padding: 0;
+}
+
+.help-drawer li {
+  margin: 8px 0;
+}
+
+.help-drawer .command {
+  color: #ff9;
+  font-weight: bold;
+  display: inline-block;
+  width: 170px;
 }
