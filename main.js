@@ -24,6 +24,35 @@ window.speechAdapters = {
   otter: new OtterAIAdapter()
 };
 window.currentSpeechService = 'openai';
+
+function loadSpeechConfig() {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem('speechConfig') || '{}');
+    if (stored.openaiKey) {
+      window.speechAdapters.openai.setApiKey(stored.openaiKey);
+      document.getElementById('openaiKey').value = stored.openaiKey;
+    }
+    if (stored.otterKey) {
+      window.speechAdapters.otter.setApiKey(stored.otterKey);
+      document.getElementById('otterKey').value = stored.otterKey;
+    }
+    if (stored.service) {
+      window.currentSpeechService = stored.service;
+      document.getElementById('transcriptionService').value = stored.service;
+    }
+  } catch (e) {
+    console.warn('Failed to load speech config', e);
+  }
+}
+
+function saveSpeechConfig() {
+  const cfg = {
+    openaiKey: document.getElementById('openaiKey').value,
+    otterKey: document.getElementById('otterKey').value,
+    service: document.getElementById('transcriptionService').value
+  };
+  window.localStorage.setItem('speechConfig', JSON.stringify(cfg));
+}
 const HELP_TEXT = `
   <li><span class="command">Ctrl+Z</span>: Undo</li>
   <li><span class="command">Ctrl+Left Arrow</span>: seeking left</li>
@@ -165,15 +194,18 @@ document.getElementById('addsubtitle')
   });
 document.getElementById('openaiKey').addEventListener('change', (e) => {
   window.speechAdapters.openai.setApiKey(e.target.value);
+  saveSpeechConfig();
 });
 document.getElementById('transcribeBtn').addEventListener('click', () => {
   transcribeCurrentSegment(window.currentSpeechService);
 });
 document.getElementById('otterKey').addEventListener('change', (e) => {
   window.speechAdapters.otter.setApiKey(e.target.value);
+  saveSpeechConfig();
 });
 document.getElementById('transcriptionService').addEventListener('change', (e) => {
   window.currentSpeechService = e.target.value;
+  saveSpeechConfig();
 });
 document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {
@@ -288,4 +320,5 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+loadSpeechConfig();
 initializeSubtitleManagerAutosave();

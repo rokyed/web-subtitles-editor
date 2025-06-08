@@ -33,6 +33,8 @@ either the OpenAI Whisper or Otter.ai APIs. Provide your API keys in the
 configuration panel and select which service to use from the dropdown. Then
 click **Transcribe 5s** to record five seconds from the current position and add
 a new subtitle with the transcribed text.
+Your API keys and selected service are saved in your browser's local storage so
+you don't have to re-enter them every time.
 
 
 #### Why vanila javascript
