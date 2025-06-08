@@ -20,7 +20,8 @@ window.converters = {
   localStorage: new LocalStorageConverter()
 };
 window.speechAdapters = {
-  openai: new OpenAIWhisperAdapter()
+  openai: new OpenAIWhisperAdapter(),
+  otter: new OtterAIAdapter()
 };
 const HELP_TEXT = `
   <li><span class="command">Ctrl+Z</span>: Undo</li>
@@ -78,14 +79,18 @@ async function recordSegment(durationSec = 5) {
   });
 }
 
-async function transcribeCurrentSegment() {
+async function transcribeCurrentSegment(adapterName = 'openai') {
   const duration = 5;
   const startSec = window.videoPlayer.cfg.video.currentTime;
   window.videoPlayer.play();
   const audioBlob = await recordSegment(duration);
   window.videoPlayer.pause();
   try {
-    const text = await window.speechAdapters.openai.transcribe(audioBlob);
+    const adapter = window.speechAdapters[adapterName];
+    if (!adapter) {
+      throw new Error('Unknown speech adapter: ' + adapterName);
+    }
+    const text = await adapter.transcribe(audioBlob);
     window.subtitleManager.addSubtitle({
       startTime: Utils.convertSecondsToStringTimestamp(startSec),
       endTime: Utils.convertSecondsToStringTimestamp(startSec + duration),
@@ -150,6 +155,12 @@ document.getElementById('openaiKey').addEventListener('change', (e) => {
 });
 document.getElementById('transcribeBtn').addEventListener('click', () => {
   transcribeCurrentSegment();
+});
+document.getElementById('otterKey').addEventListener('change', (e) => {
+  window.speechAdapters.otter.setApiKey(e.target.value);
+});
+document.getElementById('transcribeOtterBtn').addEventListener('click', () => {
+  transcribeCurrentSegment('otter');
 });
 document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {
