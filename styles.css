@@ -142,6 +142,8 @@ input[type="file"] {
   margin-top: 50px;
   height: auto;
   overflow-y: scroll;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .hscroll th, .hscroll td {
@@ -162,7 +164,7 @@ input[type="file"] {
 }
 
 .hscroll td:nth-child(1),.hscroll th:nth-child(1) {
-  width: 70px;
+  width: 90px;
 }
 .hscroll td:nth-child(2),.hscroll th:nth-child(2) {
   width: 150px;
@@ -178,6 +180,25 @@ input[type="file"] {
 .snap-control-buttons {
   display: flex;
   flex-direction: column;
+}
+
+#tableRefPoint .snap-control-container {
+  align-items: center;
+}
+
+#tableRefPoint .snap-control-buttons {
+  margin-right: 4px;
+}
+
+#tableRefPoint .snap-control-buttons button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 2px 0;
+}
+
+#tableRefPoint .snap-order {
+  width: 40px;
 }
 
 .occludable.hidden {
