@@ -29,13 +29,10 @@ You can also add a new subtitle by clicking the **Add Subtitle** button.
 #### Voice to text
 
 You can automatically create subtitles from a short segment of the video using
-OpenAI Whisper. Provide your API key in the input field and click **Transcribe
-5s** to record five seconds from the current position. A new subtitle with the
-transcribed text will be inserted.
-
-Alternatively, you can use the Otter.ai transcription API. Enter your Otter API
-key in the dedicated field and use the **Transcribe 5s (Otter)** button to
-generate subtitles via Otter.ai.
+either the OpenAI Whisper or Otter.ai APIs. Provide your API keys in the
+configuration panel and select which service to use from the dropdown. Then
+click **Transcribe 5s** to record five seconds from the current position and add
+a new subtitle with the transcribed text.
 
 
 #### Why vanila javascript
