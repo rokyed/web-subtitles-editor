@@ -32,6 +32,7 @@
     <script src="converters/jsonConverter.js"></script>
     <script src="speech/speechAdapter.js"></script>
     <script src="speech/openaiWhisperAdapter.js"></script>
+    <script src="speech/otterAiAdapter.js"></script>
   </head>
   <body>
   <!-- Google Tag Manager (noscript) -->
@@ -79,6 +80,13 @@
         <input type="password" id="openaiKey" placeholder="sk-...">
       </label>
       <button id="transcribeBtn">Transcribe 5s</button>
+    </div>
+    <div class="header">
+      <label>
+        Otter API Key:
+        <input type="password" id="otterKey" placeholder="token">
+      </label>
+      <button id="transcribeOtterBtn">Transcribe 5s (Otter)</button>
     </div>
     <div class="hscroll">
       <table id="tableHeader">
