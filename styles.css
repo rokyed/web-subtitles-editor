@@ -152,3 +152,50 @@ input[type="file"] {
 .hint {
   color: #ff9;
 }
+
+.help-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.help-drawer {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background: #222;
+  color: #fff;
+  padding: 10px;
+  box-shadow: 0 0 10px #000;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.help-drawer.open {
+  right: 0;
+}
+
+.help-drawer .close-help {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.help-drawer pre {
+  white-space: pre-wrap;
+  margin-top: 40px;
+}

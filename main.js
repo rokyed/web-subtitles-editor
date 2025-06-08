@@ -19,6 +19,19 @@ window.converters = {
   subrip: new SubRipConverter(),
   localStorage: new LocalStorageConverter()
 };
+const HELP_TEXT = `Ctrl+Z: Undo
+Ctrl+Left Arrow: seeking left
+Ctrl+Right Arrow: seeking right
+Ctrl+Shift+Left Arrow: seeking left fast
+Ctrl+Shift+Right Arrow: seeking right fast
+Alt+D: Set video time to selected subtitle start
+Alt+F: Set video time to selected subtitle end
+Alt+Z: Set start of subtitle to current video time
+Alt+X: Set end of subtitle to current video time
+Alt+C: Create new subtitle
+Alt+N: Set start time of future subtitle
+Alt+M: Create new subtitle with start time from Alt+N and current time.
+Alt+W: Set current time as text.`;
 window.videoPlayer.addListener('timestamp.update', window.subtitleManager.updateUI, window.subtitleManager);
 
 async function initializeSubtitleManagerAutosave() {
@@ -89,6 +102,13 @@ document.getElementById('savejson')
   .addEventListener('click', (e) => {
     window.converters.json.writeData(window.subtitleManager.getData());
   });
+document.getElementById('helpDrawer').querySelector('pre').textContent = HELP_TEXT;
+document.getElementById('helpBtn').addEventListener('click', () => {
+  document.getElementById('helpDrawer').classList.add('open');
+});
+document.getElementById('closeHelp').addEventListener('click', () => {
+  document.getElementById('helpDrawer').classList.remove('open');
+});
 //
 // window.addEventListener('scroll', (e) => {
 //   window.subtitleManager.onScroll();
@@ -126,23 +146,9 @@ window.addEventListener('keydown', (e) => {
 
     let snaps = window.subtitleManager.getSnaps();
 
-    switch (e.code) {
+      switch (e.code) {
         case 'KeyH':
-          alert(`
-Ctrl+Z: Undo
-Ctrl+Left Arrow: seeking left
-Ctrl+Right Arrow: seeking right
-Ctrl+Shift+Left Arrow: seeking left fast
-Ctrl+Shift+Right Arrow: seeking right fast
-Alt+D: Set video time to selected subtitle start
-Alt+F: Set video time to selected subtitle end
-Alt+Z: Set start of subtitle to current video time
-Alt+X: Set end of subtitle to current video time
-Alt+C: Create new subtitle
-Alt+N: Set start time of future subtitle
-Alt+M: Create new subtitle with start time from Alt+N and current time.
-Alt+W: Set current time as text.
-          `)
+          document.getElementById('helpDrawer').classList.add('open');
           break;
         case 'KeyD':
           snaps.map((s) => {
