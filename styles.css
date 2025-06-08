@@ -273,6 +273,21 @@ input[type="file"] {
   margin-bottom: 15px;
 }
 
+.config-drawer details {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.config-drawer details summary {
+  cursor: pointer;
+  color: #ffcc00;
+  margin-bottom: 5px;
+}
+
+.config-drawer details p {
+  margin: 0 0 10px 0;
+}
+
 .config-drawer input,
 .config-drawer select {
   margin-top: 5px;
