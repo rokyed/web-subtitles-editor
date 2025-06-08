@@ -23,6 +23,7 @@ window.speechAdapters = {
   openai: new OpenAIWhisperAdapter(),
   otter: new OtterAIAdapter()
 };
+window.currentSpeechService = 'openai';
 const HELP_TEXT = `
   <li><span class="command">Ctrl+Z</span>: Undo</li>
   <li><span class="command">Ctrl+Left Arrow</span>: seeking left</li>
@@ -154,13 +155,13 @@ document.getElementById('openaiKey').addEventListener('change', (e) => {
   window.speechAdapters.openai.setApiKey(e.target.value);
 });
 document.getElementById('transcribeBtn').addEventListener('click', () => {
-  transcribeCurrentSegment();
+  transcribeCurrentSegment(window.currentSpeechService);
 });
 document.getElementById('otterKey').addEventListener('change', (e) => {
   window.speechAdapters.otter.setApiKey(e.target.value);
 });
-document.getElementById('transcribeOtterBtn').addEventListener('click', () => {
-  transcribeCurrentSegment('otter');
+document.getElementById('transcriptionService').addEventListener('change', (e) => {
+  window.currentSpeechService = e.target.value;
 });
 document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {

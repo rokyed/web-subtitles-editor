@@ -54,6 +54,13 @@
         Otter API Key:
         <input type="password" id="otterKey" placeholder="token">
       </label>
+      <label>
+        Transcription Service:
+        <select id="transcriptionService">
+          <option value="openai">OpenAI Whisper</option>
+          <option value="otter">Otter.ai</option>
+        </select>
+      </label>
     </div>
     <div class="header">
       <label>
@@ -86,7 +93,6 @@
         <button id="savejson">Save JSON</button>
         <button id="addsubtitle">Add Subtitle</button>
         <button id="transcribeBtn">Transcribe 5s</button>
-        <button id="transcribeOtterBtn">Transcribe 5s (Otter)</button>
       </label>
     </div>
     <div class="hscroll">
