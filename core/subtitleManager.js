@@ -69,7 +69,7 @@ class SubtitleManager {
       if (isNaN(startTime)) {
         ts = startTime;
       } else {
-        ts = Utils.convertSecondsToStringTimestamp(ts);
+        ts = Utils.convertSecondsToStringTimestamp(startTime);
       }
 
       let end = Utils.convertSecondsToStringTimestamp(Utils.convertStringTimestampToSeconds(ts) + 0.3);
@@ -78,7 +78,7 @@ class SubtitleManager {
         if (isNaN(endTime)) {
           end = endTime;
         } else {
-          end = utils.convertSecondsToStringTimestamp(endTime);
+          end = Utils.convertSecondsToStringTimestamp(endTime);
         }
       }
 
