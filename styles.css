@@ -225,6 +225,51 @@ input[type="file"] {
   background: #4a4a4a;
 }
 
+.config-btn {
+  width: 40px;
+  height: 40px;
+  background: #3a3a3a;
+  color: #eaeaea;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.config-btn:hover {
+  background: #4a4a4a;
+}
+
+.config-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100%;
+  background: #242424;
+  color: #eaeaea;
+  padding: 10px 20px;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.5);
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  z-index: 998;
+}
+
+.config-drawer.open {
+  right: 0;
+}
+
+.config-drawer .close-config {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #3a3a3a;
+  color: #eaeaea;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .help-drawer {
   position: fixed;
   top: 0;

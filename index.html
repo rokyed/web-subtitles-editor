@@ -43,6 +43,17 @@
       <button id="closeHelp" class="close-help">X</button>
       <ul class="help-text"></ul>
     </div>
+    <div id="configDrawer" class="config-drawer">
+      <button id="closeConfig" class="close-config">X</button>
+      <label>
+        OpenAI API Key:
+        <input type="password" id="openaiKey" placeholder="sk-...">
+      </label>
+      <label>
+        Otter API Key:
+        <input type="password" id="otterKey" placeholder="token">
+      </label>
+    </div>
     <div class="header">
       <label>
         Video:
@@ -56,6 +67,7 @@
         Press <b>Alt+Shift+H</b> for help.
       </span>
       <button id="helpBtn" class="help-btn">?</button>
+      <button id="configBtn" class="config-btn">&#9881;</button>
     </div>
     <video id="player" controls="true">
     </video>
@@ -72,21 +84,9 @@
         <button id="savesubrip">Save SubRip</button>
         <button id="savejson">Save JSON</button>
         <button id="addsubtitle">Add Subtitle</button>
+        <button id="transcribeBtn">Transcribe 5s</button>
+        <button id="transcribeOtterBtn">Transcribe 5s (Otter)</button>
       </label>
-    </div>
-    <div class="header">
-      <label>
-        OpenAI API Key:
-        <input type="password" id="openaiKey" placeholder="sk-...">
-      </label>
-      <button id="transcribeBtn">Transcribe 5s</button>
-    </div>
-    <div class="header">
-      <label>
-        Otter API Key:
-        <input type="password" id="otterKey" placeholder="token">
-      </label>
-      <button id="transcribeOtterBtn">Transcribe 5s (Otter)</button>
     </div>
     <div class="hscroll">
       <table id="tableHeader">
