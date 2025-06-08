@@ -19,6 +19,9 @@ window.converters = {
   subrip: new SubRipConverter(),
   localStorage: new LocalStorageConverter()
 };
+window.speechAdapters = {
+  openai: new OpenAIWhisperAdapter()
+};
 const HELP_TEXT = `
   <li><span class="command">Ctrl+Z</span>: Undo</li>
   <li><span class="command">Ctrl+Left Arrow</span>: seeking left</li>
@@ -59,6 +62,38 @@ function setVideo(e) {
     return;
   }
   videoPlayer.open(file);
+}
+
+async function recordSegment(durationSec = 5) {
+  return new Promise((resolve) => {
+    const stream = window.videoPlayer.cfg.video.captureStream();
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+    const chunks = [];
+    mediaRecorder.ondataavailable = (ev) => chunks.push(ev.data);
+    mediaRecorder.onstop = () => {
+      resolve(new Blob(chunks, { type: 'audio/webm' }));
+    };
+    mediaRecorder.start();
+    setTimeout(() => mediaRecorder.stop(), durationSec * 1000);
+  });
+}
+
+async function transcribeCurrentSegment() {
+  const duration = 5;
+  const startSec = window.videoPlayer.cfg.video.currentTime;
+  window.videoPlayer.play();
+  const audioBlob = await recordSegment(duration);
+  window.videoPlayer.pause();
+  try {
+    const text = await window.speechAdapters.openai.transcribe(audioBlob);
+    window.subtitleManager.addSubtitle({
+      startTime: Utils.convertSecondsToStringTimestamp(startSec),
+      endTime: Utils.convertSecondsToStringTimestamp(startSec + duration),
+      content: [text]
+    });
+  } catch (e) {
+    alert(e.message);
+  }
 }
 
 async function setSubtitles(e) {
@@ -110,6 +145,12 @@ document.getElementById('addsubtitle')
       startTime: window.videoPlayer.getCurrentTime()
     });
   });
+document.getElementById('openaiKey').addEventListener('change', (e) => {
+  window.speechAdapters.openai.setApiKey(e.target.value);
+});
+document.getElementById('transcribeBtn').addEventListener('click', () => {
+  transcribeCurrentSegment();
+});
 document.getElementById('helpDrawer').querySelector('.help-text').innerHTML = HELP_TEXT;
 document.getElementById('helpBtn').addEventListener('click', () => {
   document.getElementById('helpDrawer').classList.add('open');

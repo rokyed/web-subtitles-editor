@@ -61,7 +61,7 @@ class SubtitleManager {
   }
 
   addSubtitle(conf = {}) {
-      let {startTime, endTime, referencePoint, isAfter} = conf;
+      let {startTime, endTime, referencePoint, isAfter, content} = conf;
       let focusRefSnap = -1;
       this.pushCurrentStateToSnapshots();
       let ts = '';
@@ -87,6 +87,14 @@ class SubtitleManager {
         end: end,
         content: []
       };
+
+      if (content) {
+        if (Array.isArray(content)) {
+          subtitleObj.content = content;
+        } else {
+          subtitleObj.content = [content];
+        }
+      }
 
       if (referencePoint) {
         let position = this.getIndexOfSubtitle(referencePoint);

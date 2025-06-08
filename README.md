@@ -26,6 +26,13 @@ Alt+W: Set current time as text.
 You can also add a new subtitle by clicking the **Add Subtitle** button.
 ```
 
+#### Voice to text
+
+You can automatically create subtitles from a short segment of the video using
+OpenAI Whisper. Provide your API key in the input field and click **Transcribe
+5s** to record five seconds from the current position. A new subtitle with the
+transcribed text will be inserted.
+
 
 #### Why vanila javascript
 
