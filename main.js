@@ -169,6 +169,12 @@ document.getElementById('helpBtn').addEventListener('click', () => {
 document.getElementById('closeHelp').addEventListener('click', () => {
   document.getElementById('helpDrawer').classList.remove('open');
 });
+document.getElementById('configBtn').addEventListener('click', () => {
+  document.getElementById('configDrawer').classList.add('open');
+});
+document.getElementById('closeConfig').addEventListener('click', () => {
+  document.getElementById('configDrawer').classList.remove('open');
+});
 //
 // window.addEventListener('scroll', (e) => {
 //   window.subtitleManager.onScroll();
