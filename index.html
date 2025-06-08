@@ -30,6 +30,8 @@
     <script src="converters/localStorageConverter.js"></script>
     <script src="converters/subRipConverter.js"></script>
     <script src="converters/jsonConverter.js"></script>
+    <script src="speech/speechAdapter.js"></script>
+    <script src="speech/openaiWhisperAdapter.js"></script>
   </head>
   <body>
   <!-- Google Tag Manager (noscript) -->
@@ -70,6 +72,13 @@
         <button id="savejson">Save JSON</button>
         <button id="addsubtitle">Add Subtitle</button>
       </label>
+    </div>
+    <div class="header">
+      <label>
+        OpenAI API Key:
+        <input type="password" id="openaiKey" placeholder="sk-...">
+      </label>
+      <button id="transcribeBtn">Transcribe 5s</button>
     </div>
     <div class="hscroll">
       <table id="tableHeader">
